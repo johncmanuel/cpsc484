@@ -1,5 +1,3 @@
-# https://omaraflak.medium.com/ray-tracing-from-scratch-in-python-41670e6a96f9
-
 import numpy as np
 import matplotlib.pyplot as plt
 
