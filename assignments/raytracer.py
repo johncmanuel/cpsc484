@@ -1,3 +1,5 @@
+# https://omaraflak.medium.com/ray-tracing-from-scratch-in-python-41670e6a96f9
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -46,40 +48,76 @@ ratio = float(width) / height
 screen = (-1, 1 / ratio, 1, -1 / ratio)  # left, top, right, bottom
 
 light = {
-    "position": np.array([5, 5, 5]),
+    "position": np.array([5, 10, 5]),
     "ambient": np.array([1, 1, 1]),
     "diffuse": np.array([1, 1, 1]),
     "specular": np.array([1, 1, 1]),
 }
 
+
 objects = [
+    # black sphere
     {
+        # [x, y, z]
         "center": np.array([-0.2, 0, -1]),
         "radius": 0.7,
+        "ambient": np.array([0.05, 0.05, 0.05]),
+        "diffuse": np.array([0, 0, 0]),
+        "specular": np.array([1, 1, 1]),
+        "shininess": 100,
+        "reflection": 0.5,
+    },
+    # red sphere
+    {
+        "center": np.array([-0.2, -0.05, -1]),
+        "radius": 0.71,
         "ambient": np.array([0.1, 0, 0]),
         "diffuse": np.array([0.7, 0, 0]),
         "specular": np.array([1, 1, 1]),
         "shininess": 100,
         "reflection": 0.5,
     },
+    # left button
     {
-        "center": np.array([0.1, -0.3, 0]),
-        "radius": 0.1,
-        "ambient": np.array([0.1, 0, 0.1]),
-        "diffuse": np.array([0.7, 0, 0.7]),
+        "center": np.array([-0.4, -0.15, -0.5]),
+        "radius": 0.18,
+        "ambient": np.array([0.3, 0.3, 0.1]),
+        "diffuse": np.array([0.8, 0.8, 0.1]),
         "specular": np.array([1, 1, 1]),
         "shininess": 100,
         "reflection": 0.5,
     },
+    # right button
     {
-        "center": np.array([-0.3, 0, 0]),
-        "radius": 0.15,
-        "ambient": np.array([0, 0.1, 0]),
-        "diffuse": np.array([0, 0.6, 0]),
+        "center": np.array([0.0, -0.15, -0.5]),
+        "radius": 0.18,
+        "ambient": np.array([0.3, 0.3, 0.1]),
+        "diffuse": np.array([0.8, 0.8, 0.1]),
         "specular": np.array([1, 1, 1]),
         "shininess": 100,
         "reflection": 0.5,
     },
+    # left ear
+    {
+        "center": np.array([-0.8, 0.6, -1]),
+        "radius": 0.4,
+        "ambient": np.array([0.05, 0.05, 0.05]),
+        "diffuse": np.array([0, 0, 0]),
+        "specular": np.array([1, 1, 1]),
+        "shininess": 100,
+        "reflection": 0.5,
+    },
+    # right ear
+    {
+        "center": np.array([0.55, 0.6, -1]),
+        "radius": 0.4,
+        "ambient": np.array([0.1, 0.1, 0.1]),
+        "diffuse": np.array([0.6, 0.6, 0.6]),
+        "specular": np.array([1, 1, 1]),
+        "shininess": 100,
+        "reflection": 0.5,
+    },
+    # grey floor
     {
         "center": np.array([0, -9000, 0]),
         "radius": 9000 - 0.7,
@@ -92,6 +130,7 @@ objects = [
 ]
 
 image = np.zeros((height, width, 3))
+
 for i, y in enumerate(np.linspace(screen[1], screen[3], height)):
     for j, x in enumerate(np.linspace(screen[0], screen[2], width)):
         # screen is on origin
