@@ -48,7 +48,7 @@ ratio = float(width) / height
 screen = (-1, 1 / ratio, 1, -1 / ratio)  # left, top, right, bottom
 
 light = {
-    "position": np.array([5, 10, 5]),
+    "position": np.array([5, 5, 5]),
     "ambient": np.array([1, 1, 1]),
     "diffuse": np.array([1, 1, 1]),
     "specular": np.array([1, 1, 1]),
