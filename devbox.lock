@@ -1,6 +1,54 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "python312Packages.tkinter@3.12.8": {
+      "last_modified": "2025-01-25T23:17:58Z",
+      "resolved": "github:NixOS/nixpkgs/b582bb5b0d7af253b05d58314b85ab8ec46b8d19#python312Packages.tkinter",
+      "source": "devbox-search",
+      "version": "3.12.8",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/n10sq9c3fh93ni8mhy55nqaar74a9ag3-python3.12-tkinter-3.12.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/n10sq9c3fh93ni8mhy55nqaar74a9ag3-python3.12-tkinter-3.12.8"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/zw1c4ay5i5fv77f415j50dsxpry1j5jc-python3.12-tkinter-3.12.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/zw1c4ay5i5fv77f415j50dsxpry1j5jc-python3.12-tkinter-3.12.8"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/xfnv5fd9dh7ihzmzxjxd4br6q5s3mbb0-python3.12-tkinter-3.12.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/xfnv5fd9dh7ihzmzxjxd4br6q5s3mbb0-python3.12-tkinter-3.12.8"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/xx8qcpsjm06pyqm7j9iqxmwjxif4s9mg-python3.12-tkinter-3.12.8",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/xx8qcpsjm06pyqm7j9iqxmwjxif4s9mg-python3.12-tkinter-3.12.8"
+        }
+      }
+    },
     "python@3.12.5": {
       "last_modified": "2024-09-10T15:01:03Z",
       "plugin_version": "0.0.4",
