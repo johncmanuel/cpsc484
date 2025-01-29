@@ -15,6 +15,14 @@
     "scripts": {
       "test": [
         "echo \"Error: no test specified\" && exit 1"
+      ],
+      "ogl1": [
+        "clang++ ./opengl_linux_mac/tetra.cpp -o tetra.o -lGL -lGLU -lglut -lglfw ",
+        "clang++ ./opengl_linux_mac/hexahedron.cpp -o hexahedron.o -lGL -lGLU -lglut -lglfw ",
+        "clang++ ./opengl_linux_mac/teapot.cpp -o teapot.o -lGL -lGLU -lglut -lglfw "
+      ],
+      "ogl1_r": [
+        "./tetra.o & ./hexahedron.o & ./teapot.o"
       ]
     }
   }
