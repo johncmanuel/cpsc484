@@ -4,6 +4,9 @@
     "python@3.12.5",
     "python312Packages.tkinter@3.12.8"
   ],
+  "env": {
+    "MPLBACKEND": "TkAgg"
+  },
   "shell": {
     "init_hook": [
       ". $VENV_DIR/bin/activate",
