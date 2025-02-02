@@ -1,0 +1,11 @@
+---
+If:
+  PathExclude: [.*\.cpp, .*\.hpp]
+CompileFlags:
+  Add: [-std=gnu17]
+
+---
+If:
+  PathExclude: [.*\.c, .*\.h]
+CompileFlags:
+  Add: [-std=c++11]
