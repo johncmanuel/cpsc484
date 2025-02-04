@@ -57,8 +57,13 @@ public:
   matrix3d<T> operator-(const matrix3d<T> &b);
   //=======================================================================
   friend matrix3d operator+(const matrix3d &a, T k) {
-    return matrix3d(std::to_string(k) + "+" + a.name(), 3,
-                    {a[0] + k, a[1] + k, a[2] + k});
+    matrix3d<T> result(a.name_ + " + " + std::to_string(k), a.dims_);
+    for (int i = 0; i < a.dims_; ++i) {
+      for (int j = 0; j < a.dims_; ++j) {
+        result(i, j) = a(i, j) + k;
+      }
+    }
+    return result;
   }
   friend matrix3d operator+(T k, const matrix3d &a) { return a + k; }
   friend matrix3d operator-(const matrix3d &a, T k) {
@@ -71,9 +76,13 @@ public:
     return a - k;
   } // ditto
   friend matrix3d operator*(const matrix3d &a, T k) { /* TODO */
-    std::cout << "in operator*(matrix3d, T)\n" << std::endl;
-    return matrix3d(std::to_string(k) + "*" + a.name(), 3,
-                    {a[0] * k, a[1] * k, a[2] * k});
+    matrix3d<T> result(a.name_ + " * " + std::to_string(k), a.dims_);
+    for (int i = 0; i < a.dims_; ++i) {
+      for (int j = 0; j < a.dims_; ++j) {
+        result(i, j) = a(i, j) * k;
+      }
+    }
+    return result;
   } // ...
 
   friend matrix3d<T> operator*(T k, const matrix3d &a) { /* TODO */
@@ -146,6 +155,9 @@ public:
 
     matrix3D id = matrix3D::identity(3);
     id.show();
+
+    matrix3D r = a * id;
+    r.show();
 
     assert(a * id == a);
     (a * id).show();
@@ -385,7 +397,7 @@ template <typename T> T matrix3d<T>::operator()(int row, int col) const {
 template <typename T> T &matrix3d<T>::operator()(int row, int col) { /* TODO */
   check_bounds(row);
   check_bounds(col);
-  return cols_[row][col];
+  return cols_[col][row];
 } // FIX THIS
 template <typename T>
 T *matrix3d<T>::opengl_memory(int row, int col) { /* TODO */
@@ -412,7 +424,7 @@ template <typename T> matrix3d<T> &matrix3d<T>::operator+=(T k) {
 template <typename T> matrix3d<T> &matrix3d<T>::operator-=(T k) {
   operator+=(-k);
 }
-template <typename T> matrix3d<T> &matrix3d<T>::operator*=(T k) { /* TODO */ }
+template <typename T> matrix3d<T> &matrix3d<T>::operator*=(T k) {}
 template <typename T> matrix3d<T> &matrix3d<T>::operator/=(T k) {
   if (abs(k) < epsilon_) {
     throw new std::invalid_argument("divide by zero\n");
@@ -449,7 +461,7 @@ template <typename T>
 matrix3d<T> matrix3d<T>::operator-(const matrix3d<T> &b) { /* TODO */ }
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::operator*(const matrix3d<T> &b) {
-  matrix3d res(name_ + "+" + b.name_, 3);
+  matrix3d res(name_ + "*" + b.name_, 3); // fix bug where it showed + not *
   const matrix3d<T> &a = *this;
   for (int i = 0; i < dims_; ++i) {
     for (int j = 0; j < dims_; ++j) {
