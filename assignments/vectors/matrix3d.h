@@ -531,8 +531,12 @@ template <typename T> matrix3d<T> matrix3d<T>::cofactor() const { /* TODO */
   }
   return result;
 }
-template <typename T> matrix3d<T> matrix3d<T>::adjoint() const { /* TODO */ }
-template <typename T> matrix3d<T> matrix3d<T>::inverse() const { /* TODO */ }
+template <typename T> matrix3d<T> matrix3d<T>::adjoint() const { /* TODO */
+  return cofactor().transpose();
+}
+template <typename T> matrix3d<T> matrix3d<T>::inverse() const { /* TODO */
+  return adjoint() / determinant();
+}
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::identity(int dims) {
   matrix3d<T> identityMatrix("I", 3);
