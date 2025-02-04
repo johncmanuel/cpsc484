@@ -482,7 +482,12 @@ template <typename T> matrix3d<T> matrix3d<T>::transpose() const {
                 m(1, 2), m(2, 2), m(0, 3), m(1, 3), m(2, 3)});
   return res;
 }
-template <typename T> T matrix3d<T>::determinant() const { /* TODO */ }
+template <typename T> T matrix3d<T>::determinant() const { /* TODO */
+  const matrix3d<T> &m = *this;
+  return m(0, 0) * (m(1, 1) * m(2, 2) - m(1, 2) * m(2, 1)) -
+         m(0, 1) * (m(1, 0) * m(2, 2) - m(1, 2) * m(2, 0)) +
+         m(0, 2) * (m(1, 0) * m(2, 1) - m(1, 1) * m(2, 0));
+}
 template <typename T> T matrix3d<T>::trace() const {
   const matrix3d<T> &m = *this;
   return m(0, 0) + m(1, 1) + m(2, 2);
@@ -514,7 +519,18 @@ template <typename T> matrix3d<T> matrix3d<T>::minors() const {
                          m(0, 0) * m(1, 1) - m(0, 1) * m(1, 0),
                      });
 }
-template <typename T> matrix3d<T> matrix3d<T>::cofactor() const { /* TODO */ }
+template <typename T> matrix3d<T> matrix3d<T>::cofactor() const { /* TODO */
+  const matrix3d<T> &m = *this;
+  matrix3d<T> minors = this->minors();
+  matrix3d<T> result(name_ + "_Cofactor", dims_);
+  for (int i = 0; i < dims_; ++i) {
+    for (int j = 0; j < dims_; ++j) {
+      T sign = (i + j) % 2 == 0 ? 1 : -1; // compute (-1)^(i+j)
+      result(i, j) = sign * minors(i, j);
+    }
+  }
+  return result;
+}
 template <typename T> matrix3d<T> matrix3d<T>::adjoint() const { /* TODO */ }
 template <typename T> matrix3d<T> matrix3d<T>::inverse() const { /* TODO */ }
 //=================================================================================================
