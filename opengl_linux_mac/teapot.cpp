@@ -45,30 +45,30 @@ void idle_teapot(void) {
   //  else { xpos = ypos = -1; }
 
   //  xpos = 4 * cos(phi);   ypos = 4 * sin(phi);   phi += 0.1;
-  //   ypos = 4 * cos(phi);   zpos = 4 * sin(phi);   phi += 0.1;
-  zpos = 4 * cos(phi);
-  xpos = 4 * sin(phi);
+
+  // CHANGE: Move the teapot in the z-axis
+  ypos = 4 * cos(phi);
+  zpos = 4 * sin(phi);
   phi += 0.1;
+
+  // zpos = 4 * cos(phi);
+  // xpos = 4 * sin(phi);
+  // phi += 0.1;
   glutPostRedisplay();
 }
-
-float z_pivot = -5.0f;
 
 //------------------------------------------------
 void display_teapot(void) {
   glMatrixMode(GL_MODELVIEW);
   glClear(GL_COLOR_BUFFER_BIT); // clear the drawing buffer
   glLoadIdentity();
-
-  glTranslatef(0.0f, 0.0f, z_pivot);
-  glRotatef(z_rot, 0.0, 0.0, 1.0);
-  glTranslatef(0.0f, 0.0f, -z_pivot);
   glTranslatef(xpos, ypos, -5.0);
-
   glColor3f(r, g, b);
+
   glRotatef(x_rot, 1.0, 0.0, 0.0);
   glRotatef(y_rot, 0.0, 1.0, 0.0);
-
+  glRotatef(z_rot, 0.0, 0.0, 1.0);
+  //
   float scale = 0.8;
   glScalef(scale, scale, scale);
   glutWireTeapot(size);
