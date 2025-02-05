@@ -68,9 +68,7 @@ public:
   friend matrix3d operator+(T k, const matrix3d &a) { return a + k; }
   friend matrix3d operator-(const matrix3d &a, T k) {
     /* TODO */
-    return matrix3d(std::to_string(k) + "-" + a.name(), 3,
-                    {a[0] - k, a[1] - k, a[2] - k});
-    // return a;
+    return a + (-k);
   } // THIS IS WRONG. fix it
   friend matrix3d operator-(T k, const matrix3d &a) { /* TODO */
     return a - k;
@@ -155,9 +153,6 @@ public:
 
     matrix3D id = matrix3D::identity(3);
     id.show();
-
-    matrix3D r = a * id;
-    r.show();
 
     assert(a * id == a);
     (a * id).show();
@@ -401,6 +396,8 @@ template <typename T> T &matrix3d<T>::operator()(int row, int col) { /* TODO */
 } // FIX THIS
 template <typename T>
 T *matrix3d<T>::opengl_memory(int row, int col) { /* TODO */
+  check_bounds(row);
+  check_bounds(col);
   return cols_[0][0];
 } // and this
 // implement code here
@@ -458,7 +455,9 @@ template <typename T> matrix3d<T> matrix3d<T>::operator+(const matrix3d<T> &b) {
                      {a[0] + b[0], a[1] + b[1], a[2] + b[2]});
 }
 template <typename T>
-matrix3d<T> matrix3d<T>::operator-(const matrix3d<T> &b) { /* TODO */ }
+matrix3d<T> matrix3d<T>::operator-(const matrix3d<T> &b) { /* TODO */
+  return operator+(b * -1);
+}
 //=================================================================================================
 template <typename T> matrix3d<T> matrix3d<T>::operator*(const matrix3d<T> &b) {
   matrix3d res(name_ + "*" + b.name_, 3); // fix bug where it showed + not *
@@ -547,7 +546,9 @@ template <typename T> matrix3d<T> matrix3d<T>::identity(int dims) {
   }
   return identityMatrix;
 }
-template <typename T> matrix3d<T> matrix3d<T>::zero(int dims) { /* TODO */ }
+template <typename T> matrix3d<T> matrix3d<T>::zero(int dims) { /* TODO */
+  return matrix3d<T>("0", dims);
+}
 template <typename T> bool matrix3d<T>::operator==(const matrix3d<T> &b) const {
   check_equal_dims(b);
   const matrix3d<T> &a = *this;
