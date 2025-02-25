@@ -120,7 +120,8 @@ public:
   double angle(const quaternion &v) const {
     double dot_product = dot(v), mag_product = mag() * v.mag();
     check_divide_by_zero(mag_product, "in quaterion<T>::angle()\n");
-    return acos(dot_product / mag_product);
+    // test cases involve degrees instead of radians
+    return acos(dot_product / mag_product) * (180.0 / M_PI);
   };
 
   // Sources used:
