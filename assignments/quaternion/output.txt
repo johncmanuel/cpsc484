@@ -43,7 +43,7 @@ quat.ii is: -1
 quat.jj is: -1
 quat.kk is: -1
 
-angle (deg) between c and d is: 0.785
+angle (deg) between c and d is: 45
 c_minus_d is: Quat(i)rot_matrix of c_minus_d is: <'rot_matrix', <col0,   1   0   0   0><col1,   0  -1   0   0><col2,   0   0  -1   0>> OR by rows...
   1   0   0 
   0  -1   0 
